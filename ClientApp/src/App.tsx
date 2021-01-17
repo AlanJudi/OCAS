@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Route } from 'react-router';
 import Layout from './components/Layout';
 import Home from './components/Home';
-import Counter from './components/Counter';
+import Activities from './components/Activities';
+import Users from './components/Users';
 import FetchData from './components/FetchData';
 
 import './custom.css'
@@ -10,7 +11,8 @@ import './custom.css'
 export default () => (
     <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
+        <Route path='/activities' component={Activities} />
+        <Route path='/users' component={Users} />
         <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
     </Layout>
 );
