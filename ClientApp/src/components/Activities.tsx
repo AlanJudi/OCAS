@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 
 const Activities = () => (
-    <h1>Activity Sign up </h1>
+    <h1>Activities </h1>
 );
 
 export default connect()(Activities);

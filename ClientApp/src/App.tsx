@@ -4,7 +4,6 @@ import Layout from './components/Layout';
 import Home from './components/Home';
 import Activities from './components/Activities';
 import Users from './components/Users';
-import FetchData from './components/FetchData';
 
 import './custom.css'
 
@@ -13,6 +12,5 @@ export default () => (
         <Route exact path='/' component={Home} />
         <Route path='/activities' component={Activities} />
         <Route path='/users' component={Users} />
-        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
     </Layout>
 );

@@ -6,9 +6,6 @@ const OnSubmit = (event: any) => {
 
 };
 
-const OnChange = (event: any) => {
-
-};
 
 
 const Home = () => (
