@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using OCAS.Models;
 
 namespace OCAS
 {
@@ -28,6 +30,14 @@ namespace OCAS
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            //Add User Context
+            services.AddDbContext<UserContext>(
+                    options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
+            //Add Activity Context
+            services.AddDbContext<ActivityContext>(
+                    options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
         }
 

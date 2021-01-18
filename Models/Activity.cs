@@ -1,6 +1,6 @@
 using System;
 
-namespace OCAS
+namespace OCAS.Models
 {
     public class Activity
     {

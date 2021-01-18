@@ -9,15 +9,9 @@ namespace OCAS.Models
         public DbSet<Activity> Activities { get; set; }
         
 
-        public ActivityContext(IConfiguration configuration)
+        public ActivityContext(IConfiguration configuration, DbContextOptions<ActivityContext> options) : base(options)
         {
             Configuration = configuration;
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-          
-            optionsBuilder.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
         }
 
         
