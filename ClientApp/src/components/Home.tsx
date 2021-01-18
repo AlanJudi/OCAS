@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import queryString from 'query-string'  
 
 const OnSubmit = (event: any) => {
+    
+    //
 
+   
 };
 
 
 
 const Home = () => (
-    <Form>
+    <Form onSubmit={OnSubmit}>
         <FormGroup>
             <Label for="firstName">FirstName</Label>
             <Input type="text" name="firstName" id="firstName" placeholder="First Name" />
@@ -24,7 +28,7 @@ const Home = () => (
         </FormGroup>
         <FormGroup>
             <Label for="Selection">Select Activity</Label>
-            <Input type="select" name="select" id="Selection">
+            <Input type="select" name="selection" id="Selection">
                 <option>Activity 1</option>
                 <option>Activity 2</option>
                 <option>Activity 3</option>
@@ -34,7 +38,7 @@ const Home = () => (
         </FormGroup>
         <FormGroup>
             <Label for="Comments">Comments</Label>
-            <Input type="textarea" name="text" id="Comments" />
+            <Input type="textarea" name="comments" id="Comments" />
         </FormGroup>
         
         
