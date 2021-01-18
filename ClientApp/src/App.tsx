@@ -12,6 +12,5 @@ export default () => (
         <Route exact path='/' component={Home} />
         <Route path='/activities' component={Activities} />
         <Route path='/users' component={Users} />
-
     </Layout>
 );
