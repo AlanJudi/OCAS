@@ -20,7 +20,6 @@ export interface HomeState {
 
 export interface SubmitUserAction {
     type: 'SUBMIT_USER';
-    payload: 
 }
 
 export interface UpdateFieldAction {
