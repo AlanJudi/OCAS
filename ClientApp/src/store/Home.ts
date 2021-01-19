@@ -1,6 +1,6 @@
 ﻿import { Action, Reducer } from 'redux';
 import { AppThunkAction } from './';
-import { User } from './Activities';
+import App from '../App';
 
 // -----------------
 // STATE - This defines the type of data maintained in the Redux store.
@@ -18,36 +18,52 @@ export interface HomeState {
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 
-interface SubmitUserAction {
+export interface SubmitUserAction {
     type: 'SUBMIT_USER';
-    user: User;
+    payload: 
+}
+
+export interface UpdateFieldAction {
+    type: "UPDATE_FIELD";
+    name: string;
+    value: string;
 }
 
 
 // Declare a 'discriminated union' type. This guarantees that all references to 'type' properties contain one of the
 // declared type strings (and not any other arbitrary string).
-type KnownAction = SubmitUserAction;
+type KnownAction = SubmitUserAction | UpdateFieldAction;
 
 // ----------------
 // ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
 // They don't directly mutate state, but they can have external side-effects (such as loading data).
 
 export const actionCreators = {
-    SubmitUser: (user: User): AppThunkAction<KnownAction> => (dispatch, getState) => {
+    SubmitUser: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         
         const appState = getState();
         if (appState && appState.Home) {
-   
 
-            dispatch({ type: 'SUBMIT_USER', user: user });
+            /** Make Axios request */
+            console.log(appState.Home);
+            
         }
+    },
+    UpdateField: (name: string, val: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
+        const appState = getState();
+        if (appState && appState.Home) {
+
+            dispatch({ type: 'UPDATE_FIELD', name: name, value: val });
+        }
+
+        
     }
 };
 
 // ----------------
 // REDUCER - For a given state and action, returns the new state. To support time travel, this must not mutate the old state.
 
-const unloadedState: HomeState = { activity: '0', firstName: '', lastName: '', email: '', comments: '',  isLoading: false };
+const unloadedState: HomeState = { activity: '', firstName: '', lastName: '', email: '', comments: '',  isLoading: false };
 
 export const reducer: Reducer<HomeState> = (state: HomeState | undefined, incomingAction: Action): HomeState => {
     if (state === undefined) {
@@ -65,8 +81,37 @@ export const reducer: Reducer<HomeState> = (state: HomeState | undefined, incomi
                 comments: state.comments,
                 isLoading: true
             };
-            break;
+        case 'UPDATE_FIELD':
+            let newState = state;
+            let val = action.value;
+
+            if (action.name === 'firstName') {
+                newState.firstName = val;
+            }
+
+            if (action.name === 'lastName') {
+                newState.lastName = val;
+            }
+
+            if (action.name === 'email') {
+                newState.email = val;
+            }
+
+
+            if (action.name === 'comments') {
+                newState.comments = val;
+            }
+
+            if (action.name === 'activity') {
+                newState.activity = val;
+            }
+
+            return newState;
+ 
+        default:
+            return state;
+
     }
 
-    return state;
+   
 };

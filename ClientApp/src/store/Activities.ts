@@ -13,7 +13,9 @@ export interface ActivityUsersState {
 export interface User {
     firstName: string;
     lastName: string;
-    Email: string;
+    email: string;
+    comments: string;
+    activity: string;
 }
 
 // -----------------

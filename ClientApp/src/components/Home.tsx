@@ -12,21 +12,24 @@ type HomeProps =
     & RouteComponentProps<{}>;
 
 
+class Home extends React.PureComponent<HomeProps, HomeStore.HomeState> {
 
-class Home extends React.PureComponent<HomeProps> {
-
-    //This method is called when the component is first added to the document
+    
+    /** This method is called when the component is first added to the document*/
     public componentDidMount() {
-        //
+        
     }
 
-      // This method is called when the route parameters change
+    /** This method is called when the route parameters change*/
     public componentDidUpdate() {
-        //
+        
     }
 
-    private OnSubmit(event: any) {
+    /** This method is called on Submit */
+    private OnSubmit = (event: any) => {
         event.preventDefault();
+        this.props.SubmitUser();
+        
     }
 
     public render() {
@@ -35,19 +38,19 @@ class Home extends React.PureComponent<HomeProps> {
                 <Form onSubmit={this.OnSubmit}>
                     <FormGroup>
                         <Label for="firstName">FirstName</Label>
-                        <Input type="text" name="firstName" id="firstName" placeholder="First Name" />
+                        <Input type="text" name="firstName" id="firstName" placeholder="First Name" onChange={this.OnChange} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="lastName">LastName</Label>
-                        <Input type="text" name="lastName" id="lastName" placeholder="Last Name" />
+                        <Input type="text" name="lastName" id="lastName" placeholder="Last Name" onChange={this.OnChange} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="Email">Email</Label>
-                        <Input type="email" name="email" id="Email" placeholder="Email" />
+                        <Input type="email" name="email" id="Email" placeholder="Email" onChange={this.OnChange} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="Selection">Select Activity</Label>
-                        <Input type="select" name="selection" id="Selection">
+                        <Input type="select" name="activity" id="Selection" onChange={this.OnChange}>
                             <option>Activity 1</option>
                             <option>Activity 2</option>
                             <option>Activity 3</option>
@@ -57,7 +60,7 @@ class Home extends React.PureComponent<HomeProps> {
                     </FormGroup>
                     <FormGroup>
                         <Label for="Comments">Comments</Label>
-                        <Input type="textarea" name="comments" id="Comments" />
+                        <Input type="textarea" name="comments" id="Comments" onChange={this.OnChange} />
                     </FormGroup>
 
 
@@ -67,11 +70,18 @@ class Home extends React.PureComponent<HomeProps> {
             </React.Fragment>
         );
     }
+
+    private OnChange = (event: any) => {
+        const name = event.target.name;
+        const val = event.target.value;
+
+        /** Updates the HomeState*/
+        this.props.UpdateField(name, val);
+
+        
+        
+    }
 }
-
-
-
-
 
 
 
