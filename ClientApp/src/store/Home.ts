@@ -1,6 +1,7 @@
 ﻿import { Action, Reducer } from 'redux';
 import { AppThunkAction } from './';
 import App from '../App';
+import axios, { AxiosResponse, AxiosError } from "axios";
 
 // -----------------
 // STATE - This defines the type of data maintained in the Redux store.
@@ -29,6 +30,7 @@ export interface UpdateFieldAction {
 }
 
 
+
 // Declare a 'discriminated union' type. This guarantees that all references to 'type' properties contain one of the
 // declared type strings (and not any other arbitrary string).
 type KnownAction = SubmitUserAction | UpdateFieldAction;
@@ -41,10 +43,34 @@ export const actionCreators = {
     SubmitUser: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         
         const appState = getState();
+
         if (appState && appState.Home) {
+            const user = {
+                FirstName: appState.Home.firstName,
+                LastName: appState.Home.lastName,
+                Email: appState.Home.email,
+                Comments: appState.Home.comments
+            };
 
             /** Make Axios request */
             console.log(appState.Home);
+
+            axios.post(`https://localhost:5002/api/User`, { user })
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                })
+                .catch((err: AxiosError): void => {
+                    if (err.response) {
+                        console.log(err.response.data);
+                    }
+
+                    else if (err.request) {
+                        console.log(err.request.data);
+                    }
+
+                    
+                });
             
         }
     },
@@ -72,14 +98,7 @@ export const reducer: Reducer<HomeState> = (state: HomeState | undefined, incomi
     const action = incomingAction as KnownAction;
     switch (action.type) {
         case 'SUBMIT_USER':
-            return {
-                activity: state.activity,
-                firstName: state.firstName,
-                lastName: state.lastName,
-                email: state.email,
-                comments: state.comments,
-                isLoading: true
-            };
+            return state;
         case 'UPDATE_FIELD':
             let newState = state;
             let val = action.value;
